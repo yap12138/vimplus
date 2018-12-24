@@ -22,7 +22,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 通用设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = ","      " 定义<leader>键
+let mapleader = ";"      " 定义<leader>键
 set nocompatible         " 设置不兼容原始vi模式
 filetype on              " 设置开启文件类型侦测
 filetype plugin on       " 设置加载对应文件类型的插件
@@ -109,26 +109,38 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'chxuan/cpp-mode'
+" 方便的文本编辑插件
 Plug 'chxuan/vim-edit'
 Plug 'chxuan/change-colorscheme'
 Plug 'chxuan/prepare-code'
-Plug 'chxuan/vim-buffer'
+" Plug 'chxuan/vim-buffer'
 Plug 'chxuan/vimplus-startify'
+" 显示类/方法/变量
 Plug 'chxuan/tagbar'
 Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/LeaderF'
+" 强大的文本搜索工具
 Plug 'mileszs/ack.vim'
+" 强大的光标快速移动工具
 Plug 'easymotion/vim-easymotion'
+" 模糊字符搜索插件
 Plug 'haya14busa/incsearch.vim'
-Plug 'iamcco/mathjax-support-for-mkdp'
-Plug 'iamcco/markdown-preview.vim'
+" markdown 数学公式+实时预览
+" Plug 'iamcco/mathjax-support-for-mkdp'
+" Plug 'iamcco/markdown-preview.vim'
+
+" 自动补全引号、圆括号、花括号等
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'godlygeek/tabular'
+
+" 代码、注释、表格对齐
+" Plug 'godlygeek/tabular'
+" 集成Git
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+" 快速注释代码
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-endwise'
@@ -136,18 +148,25 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
+" 优化搜索，移动光标后清除高亮
 Plug 'junegunn/vim-slash'
-Plug 'junegunn/gv.vim'
+" 显示git提交记录
+" Plug 'junegunn/gv.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-syntax'
 Plug 'kana/vim-textobj-function'
 Plug 'sgur/vim-textobj-parameter'
+" 补全函数时在命令栏显示函数签名
 Plug 'Shougo/echodoc.vim'
 Plug 'terryma/vim-smooth-scroll'
+" 强化f和F键
 Plug 'rhysd/clever-f.vim'
-Plug 'rhysd/github-complete.vim'
+" Emoji补全
+" Plug 'rhysd/github-complete.vim'
 Plug 'vim-scripts/indentpython.vim'
+
+Plug 'jlanzarotta/bufexplorer'
 
 call plug#end()            
 
@@ -167,15 +186,15 @@ nnoremap <leader>H :execute ":help " . expand("<cword>")<cr>
 nnoremap <leader>s :source $MYVIMRC<cr>
 
 " 安装、更新、删除插件
-nnoremap <leader><leader>i :PlugInstall<cr>
-nnoremap <leader><leader>u :PlugUpdate<cr>
-nnoremap <leader><leader>c :PlugClean<cr>
+" nnoremap <leader><leader>i :PlugInstall<cr>
+" nnoremap <leader><leader>u :PlugUpdate<cr>
+" nnoremap <leader><leader>c :PlugClean<cr>
 
 " 分屏窗口移动
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+" nnoremap <c-j> <c-w>j
+" nnoremap <c-k> <c-w>k
+" nnoremap <c-h> <c-w>h
+" nnoremap <c-l> <c-w>l
 
 " 打开文件自动定位到最后编辑的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
@@ -201,7 +220,7 @@ let g:airline_right_alt_sep = ''
 nnoremap <leader>y :CopyCode<cr>
 nnoremap <leader>p :PasteCode<cr>
 nnoremap <leader>U :GoToFunImpl<cr>
-nnoremap <silent> <leader>a :Switch<cr>
+nnoremap <silent> <F4> :Switch<cr>
 nnoremap <leader><leader>fp :FormatFunParam<cr>
 nnoremap <leader><leader>if :FormatIf<cr>
 
@@ -219,10 +238,10 @@ inoremap <silent> <F12> <esc> :ShowColorScheme<cr>
 let g:prepare_code_plugin_path = expand($HOME . "/.vim/plugged/prepare-code")
 
 " vim-buffer
-nnoremap <silent> <c-p> :PreviousBuffer<cr>
-nnoremap <silent> <c-n> :NextBuffer<cr>
-nnoremap <silent> <leader>d :CloseBuffer<cr>
-nnoremap <silent> <leader>D :BufOnly<cr>
+" nnoremap <silent> <c-p> :PreviousBuffer<cr>
+" nnoremap <silent> <c-n> :NextBuffer<cr>
+" nnoremap <silent> <leader>d :CloseBuffer<cr>
+" nnoremap <silent> <leader>D :BufOnly<cr>
 
 " vim-edit
 nnoremap Y :CopyText<cr>
@@ -231,8 +250,8 @@ nnoremap C :ChangeText<cr>
 nnoremap <leader>r :ReplaceTo<space>
 
 " nerdtree
-nnoremap <silent> <leader>n :NERDTreeToggle<cr>
-inoremap <silent> <leader>n <esc> :NERDTreeToggle<cr>
+nnoremap <silent> <F2> :NERDTreeToggle<cr>
+inoremap <silent> <F2> <esc> :NERDTreeToggle<cr>
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
@@ -243,6 +262,7 @@ let g:NERDTreeDirArrowCollapsible='▼'
 
 " YCM
 let g:ycm_confirm_extra_conf = 0 
+" let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
 let g:ycm_error_symbol = '✗'
 let g:ycm_warning_symbol = '✗'
 let g:ycm_seed_identifiers_with_syntax = 1 
@@ -253,8 +273,9 @@ let g:ycm_python_binary_path = 'python'
 nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
 " 已经使用cpp-mode插件提供的转到函数实现的功能
 " nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
-nnoremap <leader>o :YcmCompleter GoToInclude<cr>
-nnoremap <leader>ff :YcmCompleter FixIt<cr>
+nnoremap <leader>yh :YcmCompleter GoToInclude<cr>
+nnoremap <leader>yf :YcmCompleter FixIt<cr>
+nnoremap <leader>yt :YcmCompleter GetType<cr>
 nmap <F5> :YcmDiags<cr>
 
 " ctags
@@ -279,8 +300,10 @@ let g:ycm_semantic_triggers.c = ['->', '.', ' ', '(', '[', '&',']']
 
 " tagbar
 let g:tagbar_width = 30
-nnoremap <silent> <leader>t :TagbarToggle<cr>
-inoremap <silent> <leader>t <esc> :TagbarToggle<cr>
+" nnoremap <silent> <leader>t :TagbarToggle<cr>
+" inoremap <silent> <leader>t <esc> :TagbarToggle<cr>
+nmap <silent> <F3> :TagbarToggle<cr>
+imap <silent> <F3> <esc> :TagbarToggle<cr>
 
 " incsearch.vim
 map /  <Plug>(incsearch-forward)
@@ -288,16 +311,16 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " markdown
-let uname = system('uname -s')
-if uname == "Darwin\n"
-    let g:mkdp_path_to_chrome = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome"
-else
-    let g:mkdp_path_to_chrome = '/usr/bin/google-chrome-stable %U'
-endif
-nmap <silent> <F7> <Plug>MarkdownPreview
-imap <silent> <F7> <Plug>MarkdownPreview
-nmap <silent> <F8> <Plug>StopMarkdownPreview
-imap <silent> <F8> <Plug>StopMarkdownPreview
+" let uname = system('uname -s')
+" if uname == "Darwin\n"
+"     let g:mkdp_path_to_chrome = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome"
+" else
+"     let g:mkdp_path_to_chrome = '/usr/bin/google-chrome-stable %U'
+" endif
+" nmap <silent> <F7> <Plug>MarkdownPreview
+" imap <silent> <F7> <Plug>MarkdownPreview
+" nmap <silent> <F8> <Plug>StopMarkdownPreview
+" imap <silent> <F8> <Plug>StopMarkdownPreview
 
 " vim-easymotion
 let g:EasyMotion_smartcase = 1
@@ -333,8 +356,8 @@ nnoremap <leader>F :Ack!<space>
 let g:echodoc_enable_at_startup = 1
 
 " tabular
-nnoremap <leader>l :Tab /\|<cr>
-nnoremap <leader>= :Tab /=<cr>
+" nnoremap <leader>l :Tab /\|<cr>
+" nnoremap <leader>= :Tab /=<cr>
 
 " vim-smooth-scroll
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
@@ -343,9 +366,11 @@ noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " gv
-nnoremap <leader>g :GV<cr>
-nnoremap <leader>G :GV!<cr>
-nnoremap <leader>gg :GV?<cr>
+" nnoremap <leader>g :GV<cr>
+" nnoremap <leader>G :GV!<cr>
+" nnoremap <leader>gg :GV?<cr>
+
+nnoremap <silent>\ :ToggleBufExplorer<CR>
 
 " 个性化
 if filereadable(expand($HOME . '/.vimrc.local'))
