@@ -209,8 +209,8 @@ nnoremap <leader>s :source $MYVIMRC<cr>
 " 打开文件自动定位到最后编辑的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 
-"" 用TAB键来开关折叠
-nnoremap <silent> <tab> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+"" 用空格键来开关折叠
+nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 
 " 主题
 set background=dark
@@ -275,7 +275,7 @@ let g:NERDTreeDirArrowCollapsible='▼'
 
 " YCM
 let g:ycm_confirm_extra_conf = 0
-" let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.vimplus/.ycm_extra_conf.py'
 let g:ycm_error_symbol = '✗'
 let g:ycm_warning_symbol = '✗'
 let g:ycm_seed_identifiers_with_syntax = 1
@@ -283,6 +283,7 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 let g:ycm_server_python_interpreter = '/usr/bin/python'
 let g:ycm_python_binary_path = 'python'
+let g:ycm_max_diagnostics_to_display = 0
 nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
 " 已经使用cpp-mode插件提供的转到函数实现的功能
 " nnoremap <leader>i :YcmCompleter GoToDefinition<cr>
